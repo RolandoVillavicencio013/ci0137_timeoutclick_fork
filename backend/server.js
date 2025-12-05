@@ -27,7 +27,6 @@ app.use((req, res, next) => {
     `http://localhost:${process.env.FRONTEND_PORT || 5000}`,
     'http://localhost:3000',
     'http://localhost:5000',
-    'http://localhost:8080',
     'https://ci0137-timeoutclick.vercel.app',
     'https://ci0137-timeoutclick-fork.vercel.app'
   ];
