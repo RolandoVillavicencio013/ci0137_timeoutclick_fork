@@ -479,17 +479,20 @@ const initializeSocket = (server) => {
           `http://localhost:${process.env.FRONTEND_PORT || 5000}`,
           'http://localhost:3000',
           'http://localhost:5000',
-          'https://ci0137-timeoutclick.vercel.app'
+          'http://localhost:8080',
+          'https://ci0137-timeoutclick.vercel.app',
+          'https://ci0137-timeoutclick-fork.vercel.app'
         ];
         
-        if (origin.includes('ngrok') || allowedOrigins.includes(origin)) {
+        // Allow ngrok and any Vercel domain
+        if (origin.includes('ngrok') || origin.includes('.vercel.app') || allowedOrigins.includes(origin)) {
           callback(null, true);
         } else {
           callback(null, false);
         }
       },
       credentials: true,
-      methods: ['GET', 'POST']
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
     },
     pingTimeout: 60000,
     pingInterval: 25000,
