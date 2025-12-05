@@ -33,7 +33,9 @@ app.use((req, res, next) => {
   
   // Only set CORS headers if origin exists
   if (origin) {
-    const isAllowed = allowedOrigins.includes(origin) || origin.includes('ngrok');
+    const isAllowed = allowedOrigins.includes(origin) || 
+                      origin.includes('ngrok') || 
+                      origin.includes('.vercel.app');
     
     if (isAllowed) {
       // Force override ngrok headers using writeHead hook
@@ -43,7 +45,7 @@ app.use((req, res, next) => {
         this.setHeader('Access-Control-Allow-Credentials', 'true');
         this.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
         this.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, ngrok-skip-browser-warning');
-        this.setHeader('Access-Control-Allow-Max-Age', '86400');
+        this.setHeader('Access-Control-Max-Age', '86400');
         
         return originalWriteHead.apply(this, args);
       };
@@ -53,12 +55,12 @@ app.use((req, res, next) => {
       res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
       res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, ngrok-skip-browser-warning');
       res.setHeader('Access-Control-Max-Age', '86400');
+      
+      // Handle preflight inside allowed origins
+      if (req.method === 'OPTIONS') {
+        return res.status(204).end();
+      }
     }
-  }
-  
-  // Handle preflight
-  if (req.method === 'OPTIONS') {
-    return res.status(204).end();
   }
   
   next();
