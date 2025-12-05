@@ -20,7 +20,7 @@ window.CONFIG = {
   
   // Uploads URL for avatars and files
   get UPLOADS_URL() {
-    return `${this.BACKEND_URL}/uploads`;
+    return `${this.BACKEND_URL}/uploads`
   }
 };
 
