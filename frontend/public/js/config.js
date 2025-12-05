@@ -11,7 +11,7 @@ window.CONFIG = {
   // Backend URL - change ngrok URL here when it changes
   BACKEND_URL: isLocalhost 
     ? 'http://localhost:3000'
-    : 'https://f5e403c3453e.ngrok-free.app',
+    : 'https://bally-hypertragical-danica.ngrok-free.dev',
   
   // API base URL (adds /api to backend)
   get API_URL() {
